@@ -2,6 +2,8 @@ import "./styles.css";
 import { init_home } from "./home";
 
 export { DynamicPage } from "./dynamicPage";
+export { Task } from "./task";
+
 init_home();
 
 function loadContent (initFunction) {

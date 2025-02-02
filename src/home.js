@@ -15,13 +15,6 @@ const today = format(new Date(), "eeee, LLL do, y");
 const h1top = homePage.textElement('h1', 'headline', `Today is ${today}.`);
 const h2sub = homePage.textElement('h2', 'subheading', "Here is what's on the agenda");
 
-//Image elements take (src, class, and alt) as arguments.
-//In this case, imported image variables are essentially the src link.
-//Simply place the call to the above image variable as the first argument
-//then add your alt description as the second argument
-//const heroImage = homePage.imageElement(`${ _ }`, '', '');
-//const p1 = homePage.textElement('p', '', '');
-//const p2 = homePage.textElement('p', '', '');
 
 //Page initialization. Clears page's array, then loads it, then populates the html with specified content. Order matters.
 export function init_home () {
