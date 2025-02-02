@@ -1,6 +1,4 @@
 
-const allTasks = [];
-
 class Project {
     constructor (name) {
         this.name = name;
@@ -9,13 +7,26 @@ class Project {
     }
 };
 
-function createProject (name) {
-    const project = new Project (name); //New instance of project
-    project.id = allTasks.length(); //Sets id based on allTasks length
-    allTasks.push(project); //Adds project to allTasks
-};
+export const storage = {
+    allTasks: [],
 
-function saveData () {
-    const allTasksStorage = JSON.stringify(allTasks);
-    localStorage.setItem("allTasks", allTasksStorage);
+    createProject: (name) => {
+        const project = new Project (name); //New instance of project
+        project.id = storage.allTasks.length; //Sets id based on allTasks length
+        storage.allTasks.push(project); //Adds project to allTasks
+    },
+
+    saveData: () => {
+        const allTasksStorage = JSON.stringify(storage.allTasks);
+        localStorage.setItem("allTasks", allTasksStorage);
+    },
+
+    getData: () => {
+        const allTasksStorage = localStorage.getItem("allTasks");
+        if (allTasksStorage) {
+            storage.allTasks = JSON.parse(allTasksStorage);
+        } else {
+            console.log("No existing data - using empty array");
+        }
+    }
 };

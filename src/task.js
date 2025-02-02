@@ -29,15 +29,17 @@ export class Task {
     }
 }
 
-function addTask (projectArray, task) {
-    projectArray.push(task);
-}
-
-function createTask (task, dueDate, project) {
-    return new Task(task, dueDate, project);
-}
-
-function deleteTask (projectArray, task) {
-    const taskIndex = projectArray.findIndex(obj => obj.theTask === task.theTask);
-    projectArray.splice(taskIndex, 1);
-}
+export const tFunc = {
+    addTask: (projectArray, task) => {
+        projectArray.push(task)
+        },
+    
+    createTask: (task, dueDate, project) => {
+        return new Task(task, dueDate, project);
+        },
+    
+    deleteTask: (projectArray, task) => {
+        const taskIndex = projectArray.findIndex(obj => obj.theTask === task.theTask);
+        projectArray.splice(taskIndex, 1);
+        },
+};
