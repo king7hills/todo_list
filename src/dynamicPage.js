@@ -27,6 +27,27 @@ export class DynamicPage {
         }
     }
 
+    otherElement (tag, cssClass, type, content) {
+        return {
+            tag: tag,
+            cssClass: cssClass,
+            type: type,
+            content: content,
+        }
+    }
+
+    addOtherElement (obj) {
+        const newElement = document.createElement(obj.tag);
+        newElement.innerHTML = obj.content;
+        if (obj.cssClass !== '') {
+            newElement.classList.add(`${obj.cssClass}`)
+        };
+        if (obj.type !== '') {
+            newElement.type.add(`${obj.type}`)
+        };
+        this.pageContent.appendChild(newElement);
+    }
+
     addTextElement (obj) {
         const newElement = document.createElement(obj.tag);
         newElement.innerHTML = obj.content;

@@ -18,7 +18,22 @@
         </ul>
     </div>
     <div id="content"></div>
-    <dialog class="dialog"></dialog>
+    <dialog class="dialog">
+        <button class="dialog_close">X</button>
+            <form id="add_task" method="dialog">
+                <label for="task">Task: </label>
+                <input type="text" id="task" name="Task" autofocus>
+                <label for="dueDate">Due Date: </label>
+                <input type="text" id="dueDate" name="Due Date">
+                <label for="priority">Priority: </label>
+                <input type="radio" id="priority" name="Priority">
+                <label for="project">Project: </label>
+                <select id="project" name="Project">
+                    <option value="general">General</option>
+                </select>
+                <button type="submit" name="submit" id="create_task_submit">Save</button>
+             </form>
+    </dialog>
 
     <footer>
         <div>Copyright 86 on Duck Studios</div>
