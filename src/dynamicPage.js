@@ -73,6 +73,8 @@ export class DynamicPage {
                 this.addTextElement(obj)
             } else if (obj.type = 'img') {
                 this.addImageElement(obj)
+            } else if (obj.type = '' || obj.type) {
+                this.addOtherElement(obj)
             }
         })
     }

@@ -14,11 +14,23 @@ const homePage = new DynamicPage('home');
 const today = format(new Date(), "eeee, LLL do, y");
 const h1top = homePage.textElement('h1', 'headline', `Today is ${today}.`);
 const h2sub = homePage.textElement('h2', 'subheading', "Here is what's on the agenda");
+const taskList = homePage.otherElement('ul', 'task_list', '', '');
 
+function addListItems (ulClass, projectArray) {
+    const ul = document.querySelector(`.${ulClass}`);
+    projectArray.forEach(element => {
+        const newListItem = document.createElement('li');
+        newListItem.innerHTML = element.name;
+        ul.appendChild(newListItem);
+    });
+}
 
+function displayNestedArrayContents (primaryArr) {
+    primaryArr.forEach((element) => element.forEach((item) => console.log(item)));
+}
 //Page initialization. Clears page's array, then loads it, then populates the html with specified content. Order matters.
 export function init_home () {
     homePage.pageOrder = []
-    homePage.pageOrder.push(h1top, h2sub);
+    homePage.pageOrder.push(h1top, h2sub, taskList);
     homePage.loadPage(homePage.pageOrder);
 }

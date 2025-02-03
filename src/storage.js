@@ -16,6 +16,10 @@ export const storage = {
         storage.allTasks.push(project); //Adds project to allTasks
     },
 
+    selectProject: (name) => {
+        storage.allTasks.find((project) => project.name == name);
+    },
+
     saveData: () => {
         const allTasksStorage = JSON.stringify(storage.allTasks);
         localStorage.setItem("allTasks", allTasksStorage);

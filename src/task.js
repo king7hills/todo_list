@@ -34,8 +34,8 @@ export const tFunc = {
         projectArray.push(task)
         },
     
-    createTask: (task, dueDate, project) => {
-        return new Task(task, dueDate, project);
+    createTask: (task, dueDate, priority, project) => {
+        return new Task(task, dueDate, priority, project);
         },
     
     deleteTask: (projectArray, task) => {
