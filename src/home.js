@@ -16,11 +16,24 @@ const h1top = homePage.textElement('h1', 'headline', `Today is ${today}.`);
 const h2sub = homePage.textElement('h2', 'subheading', "Here is what's on the agenda");
 const taskList = homePage.otherElement('ul', 'task_list', '', '');
 const commsDiv = homePage.otherElement('div', 'comms_div', '', '');
+const newTask = homePage.otherElement('button', 'newTask', '', '+ New Task');
 
 function displayTask (task) {
     const taskSlot = document.createElement('li');
     taskSlot.className = `task_slot ${task.priority}`;
     taskSlot.setAttribute('data-task-id', task.id);
+    
+    const completeButton = document.createElement('input');
+    completeButton.setAttribute('type', "checkbox");
+    completeButton.setAttribute('data-task-id', task.id);
+    completeButton.onchange = function (task) {
+        task.markComplete();
+        if (completeButton.value == "on") {
+            taskSlot.style.textDecorationLine("line-through");
+        } else if (completeButton.value == "off") {
+            taskSlot.style.textDecorationLine("none");
+        }
+    };
     
     const deleteButton = document.createElement('button');
     deleteButton.textContent = 'Del';
@@ -29,7 +42,7 @@ function displayTask (task) {
         deleteButton.onclick(tFunc.deleteTask(event));;
     };
 
-    taskSlot.innerHTML = "Filler";
+    taskSlot.innerHTML = completeButton + task.theTask + "Due: "+task.dueDate + deleteButton;
     const projectUl = document.querySelector(`ul.${task.project}`);
     projectUl.appendChild(taskSlot);
 };
@@ -38,7 +51,6 @@ function populateTaskList () {
     const ul = document.querySelector(`.task_list`);
     const comms = document.querySelector('.comms_div');
     
-
     //check for no tasks
     if (storage.allTasks.lenth == 0) {
         console.log("No projects or tasks.");
@@ -47,7 +59,7 @@ function populateTaskList () {
         storage.allTasks.forEach((project) => {
             //Create 'li' element for each project.
             const aProject = document.createElement('li');
-            aProject.innerHTML = project.name;
+            aProject.textContent = project.name;
             aProject.className = `taskByProject ${project.name}`;
             const newList = document.createElement('ul');
             newList.className = `${project.name}`;
@@ -65,16 +77,11 @@ function populateTaskList () {
     };
 };
 
-function createDeleteButton () {
-    const deleteButton = document.createElement('button');
-    deleteButton.onclick(tFunc.deleteTask());
-}
-
-
 
 //Page initialization. Clears page's array, then loads it, then populates the html with specified content. Order matters.
 export function init_home () {
     homePage.pageOrder = []
     homePage.pageOrder.push(h1top, h2sub, taskList, commsDiv);
     homePage.loadPage(homePage.pageOrder);
+    populateTaskList();
 }

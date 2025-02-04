@@ -31,13 +31,10 @@ form.addEventListener("submit", (e) => {
         console.log("new project created");
     };
     tFunc.addTask(storage.selectProject(newProject), freshTask);
+    storage.saveData();
     dialog.close();
     form.reset();
 });
-
-
-
-const newProjectButton = document.querySelector("#create_task_submit");
 
 function addProjectOption () {
     //Generates new project option for form
@@ -53,3 +50,6 @@ function addProjectOption () {
 
     document.querySelector("select").add(newProject);
 };
+
+const newProjectButton = document.querySelector("#form_new_project");
+newProjectButton.onclick(addProjectOption());
