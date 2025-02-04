@@ -12,7 +12,6 @@ export { populateTaskList } from "./home.js";
 
 storage.createProject("General");
 storage.saveData();
-console.log(storage.selectProject("General"));
 init_home();
 setupDialog();
 
@@ -24,5 +23,7 @@ function loadContent (initFunction) {
 
 const homeButton = document.querySelector("#home");
 homeButton.addEventListener("click", () =>
-    {loadContent(init_home)},
+    {loadContent(init_home);
+        setupDialog();
+    },
 );

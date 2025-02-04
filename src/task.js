@@ -22,7 +22,7 @@ export class Task {
     }
 
     editDueDate (input) {
-        return this.dueDate = format(new Date(input), "Pp");
+        return this.dueDate = new Date(input);
     }
 
     editPriority (input) {
@@ -47,10 +47,11 @@ export const tFunc = {
         event.preventDefault();
         const taskID = event.target.getAttribute('data-task-id');
         const parr = taskID.split("_");
-        
+                
         //Find project and remove task from project
-        const projectArray = storage.selectProject(parr[0]);
-        projectArray = projectArray.filter(task => task.theTask != task.theTask && task.dueDate != task.dueDate);
+        const project = storage.selectProject(parr[0]);
+        const task = parr[1];
+        project.data = project.data.filter(task => task != task);
         
         //Remove task element from DOM
         const taskElement = document.querySelector(`[data-task-id="${taskID}"`);

@@ -39,9 +39,10 @@ function displayTask (task) {
     deleteButton.textContent = 'Del';
     deleteButton.setAttribute('data-task-id', task.id);
     deleteButton.onclick = function (event) {
-        deleteButton.onclick(tFunc.deleteTask(event));;
+        tFunc.deleteTask(event);
     };
-    taskSlot.textContent = task.theTask + " Due: "+task.dueDate;
+
+    taskSlot.textContent = task.theTask + " Due: "+ format(new Date(task.dueDate), "Pp");
     taskSlot.appendChild(completeButton);
     taskSlot.appendChild(deleteButton);
     const projectUl = document.querySelector(`ul.${task.project}`);
@@ -50,6 +51,7 @@ function displayTask (task) {
 
 export function populateTaskList () {
     const ul = document.querySelector(`.task_list`);
+    ul.innerHTML = '';
     const comms = document.querySelector('.comms_div');
 
     storage.allTasks.forEach((project) => {
@@ -69,6 +71,7 @@ export function populateTaskList () {
             console.log("No projects or tasks.");
             comms.textContent = "Please add some tasks to get started!";
         } else {
+        comms.textContent = '';
         const projArr = project.data;
         projArr.forEach((task) => {
             displayTask(task);

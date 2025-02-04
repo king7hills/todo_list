@@ -1,4 +1,5 @@
 import { storage, tFunc } from "./index.js";
+import { populateTaskList } from "./index.js";
 
 // Diaglog main
 function setupDialog() {
@@ -32,7 +33,7 @@ function setupDialog() {
         };
         tFunc.addTask(storage.selectProject(newProject), freshTask);
         storage.saveData();
-        
+        populateTaskList();
         dialog.close();
         form.reset();
     });
