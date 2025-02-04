@@ -32,6 +32,7 @@ function setupDialog() {
         };
         tFunc.addTask(storage.selectProject(newProject), freshTask);
         storage.saveData();
+        
         dialog.close();
         form.reset();
     });
@@ -40,8 +41,12 @@ function setupDialog() {
         //Generates new project option for form
         const newProject = document.createElement("option");
         const projectName = prompt("Name: ");
-        newProject.value = projectName;
-        newProject.name = projectName;
+        if (projectName === null) {
+            return;
+        } else {
+            newProject.value = projectName;
+            newProject.textContent = projectName;
+        };
         
         //Changes selected project option to the newly created project
         const defaultProjectSelection = document.querySelector("[value=general]");

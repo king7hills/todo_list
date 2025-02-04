@@ -41,41 +41,42 @@ function displayTask (task) {
     deleteButton.onclick = function (event) {
         deleteButton.onclick(tFunc.deleteTask(event));;
     };
-
-    taskSlot.innerHTML = completeButton + task.theTask + "Due: "+task.dueDate + deleteButton;
+    taskSlot.textContent = task.theTask + " Due: "+task.dueDate;
+    taskSlot.appendChild(completeButton);
+    taskSlot.appendChild(deleteButton);
     const projectUl = document.querySelector(`ul.${task.project}`);
     projectUl.appendChild(taskSlot);
 };
 
-function populateTaskList () {
+export function populateTaskList () {
     const ul = document.querySelector(`.task_list`);
     const comms = document.querySelector('.comms_div');
-    console.log("Am I working?");
 
-    if (storage.allTasks.length == 0) {
-        console.log("No projects or tasks.");
-        comms.textContent = "Please add some tasks to get started!";
-    } else {
-        storage.allTasks.forEach((project) => {
-            //Create 'li' element for each project.
-            const aProject = document.createElement('li');
-            aProject.textContent = project.name;
-            aProject.className = `taskByProject ${project.name}`;
-            const newList = document.createElement('ul');
-            newList.className = `${project.name}`;
-            aProject.appendChild(newList);
-            ul.appendChild(aProject);
-        });
+    storage.allTasks.forEach((project) => {
+        //Create 'li' element for each project.
+        const aProject = document.createElement('li');
+        aProject.textContent = project.name;
+        aProject.className = `taskByProject ${project.name}`;
+        const newList = document.createElement('ul');
+        newList.className = `${project.name}`;
+        aProject.appendChild(newList);
+        ul.appendChild(aProject);
+    });
 
-        //Add each task to the proper project location
-        storage.allTasks.forEach((project) => {
-            const projArr = project.data;
-            projArr.forEach((task) => {
-                displayTask(task);
-            });
-        });
-    };
+    //Add each task to the proper project location
+    storage.allTasks.forEach((project) => {
+        if (project.data.length == 0) {
+            console.log("No projects or tasks.");
+            comms.textContent = "Please add some tasks to get started!";
+        } else {
+        const projArr = project.data;
+        projArr.forEach((task) => {
+            displayTask(task);
+        })
+        };
+    });
 };
+
 
 
 //Page initialization. Clears page's array, then loads it, then populates the html with specified content. Order matters.

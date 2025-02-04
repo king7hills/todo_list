@@ -22,7 +22,7 @@ export class Task {
     }
 
     editDueDate (input) {
-        return this.dueDate = new Date(input);
+        return this.dueDate = format(new Date(input), "Pp");
     }
 
     editPriority (input) {
@@ -35,8 +35,8 @@ export class Task {
 }
 
 export const tFunc = {
-    addTask: (projectArray, task) => {
-        projectArray.push(task)
+    addTask: (project, task) => {
+        project.data.push(task);
     },
     
     createTask: (task, dueDate, priority, project) => {

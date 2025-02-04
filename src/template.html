@@ -24,12 +24,18 @@
                 <label for="task">Task: </label>
                 <input type="text" id="task" name="Task" autofocus>
                 <label for="dueDate">Due Date: </label>
-                <input type="text" id="dueDate" name="Due Date">
-                <label for="priority">Priority: </label>
-                <input type="radio" id="priority" name="Priority">
+                <input type="datetime-local" id="dueDate" name="Due Date">
+                
+                <input type="radio" id="priority1" name="Priority" value="priority1">
+                <label for="priority"> Priority 1</label>
+                <input type="radio" id="priority2" name="Priority" value="priority2">
+                <label for="priority"> Priority 2</label>
+                <input type="radio" id="priority3" name="Priority" value="priority3">
+                <label for="priority"> Priority 3</label>
+
                 <label for="project">Project: </label>
                 <select id="project" name="Project">
-                    <option value="general" selected="selected">General</option>
+                    <option value="General" selected="selected">General</option>
                 </select>
                 <button type="button" name="newProject" id="form_new_project">Add New Project</button>
                 <button type="submit" name="submit" id="create_task_submit">Save</button>

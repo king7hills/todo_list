@@ -18,7 +18,7 @@ export const storage = {
     },
 
     selectProject: (name) => {
-        storage.allTasks.find((project) => project.name == name);
+        return storage.allTasks.find((project) => project.name === name);
     },
 
     saveData: () => {
