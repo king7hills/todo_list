@@ -1,3 +1,4 @@
+// storage.js
 
 class Project {
     constructor (name) {

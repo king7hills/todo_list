@@ -1,5 +1,4 @@
-import { tFunc } from "./index.html";
-import { storage } from "./storage";
+/* import { storage, tFunc } from "./index.js";
 
 // Diaglog main
 const dialog = document.querySelector('dialog');
@@ -52,4 +51,4 @@ function addProjectOption () {
 };
 
 const newProjectButton = document.querySelector("#form_new_project");
-newProjectButton.onclick(addProjectOption());
+newProjectButton.onclick(addProjectOption()); */

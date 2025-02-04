@@ -8,7 +8,6 @@ export class DynamicPage {
         this.pageContent = document.querySelector('div#content');
     }
 
-
     textElement (tag, cssClass, content) {
         return {
             tag: tag,
@@ -27,26 +26,26 @@ export class DynamicPage {
         }
     }
 
-    otherElement (tag, cssClass, type, content) {
-        return {
-            tag: tag,
-            cssClass: cssClass,
-            type: type,
-            content: content,
-        }
-    }
+    // otherElement (tag, cssClass, type, content) {
+    //     return {
+    //         tag: tag,
+    //         cssClass: cssClass,
+    //         type: type,
+    //         content: content,
+    //     }
+    // }
 
-    addOtherElement (obj) {
-        const newElement = document.createElement(obj.tag);
-        newElement.innerHTML = obj.content;
-        if (obj.cssClass !== '') {
-            newElement.classList.add(`${obj.cssClass}`)
-        };
-        if (obj.type !== '') {
-            newElement.type.add(`${obj.type}`)
-        };
-        this.pageContent.appendChild(newElement);
-    }
+    // addOtherElement (obj) {
+    //     const newElement = document.createElement(obj.tag);
+    //     newElement.innerHTML = obj.content;
+    //     if (obj.cssClass !== '') {
+    //         newElement.classList.add(`${obj.cssClass}`)
+    //     };
+    //     if (obj.type !== '') {
+    //         newElement.type.add(`${obj.type}`)
+    //     };
+    //     this.pageContent.appendChild(newElement);
+    // }
 
     addTextElement (obj) {
         const newElement = document.createElement(obj.tag);
@@ -73,9 +72,7 @@ export class DynamicPage {
                 this.addTextElement(obj)
             } else if (obj.type = 'img') {
                 this.addImageElement(obj)
-            } else if (obj.type = '' || obj.type) {
-                this.addOtherElement(obj)
             }
         })
     }
-}
+};

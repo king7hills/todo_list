@@ -1,8 +1,11 @@
 import "./styles.css";
-import { init_home } from "./home";
+import { DynamicPage } from "./dynamicPage.js";
+import { Task, tFunc } from "./task.js";
+import { storage } from "./storage.js";
+import { init_home } from "./home.js";
 
-export { DynamicPage } from "./dynamicPage";
-export { Task, tFunc } from "./task";
+export { DynamicPage } from "./dynamicPage.js";
+export { Task, tFunc } from "./task.js";
 export { storage } from "./storage.js";
 
 init_home();

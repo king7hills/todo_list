@@ -14,9 +14,9 @@ const homePage = new DynamicPage('home');
 const today = format(new Date(), "eeee, LLL do, y");
 const h1top = homePage.textElement('h1', 'headline', `Today is ${today}.`);
 const h2sub = homePage.textElement('h2', 'subheading', "Here is what's on the agenda");
-const taskList = homePage.otherElement('ul', 'task_list', '', '');
-const commsDiv = homePage.otherElement('div', 'comms_div', '', '');
-const newTask = homePage.otherElement('button', 'newTask', '', '+ New Task');
+const taskList = homePage.textElement('ul', 'task_list', '');
+const commsDiv = homePage.textElement('div', 'comms_div', '');
+const newTask = homePage.textElement('button', 'newTask', '+ New Task');
 
 function displayTask (task) {
     const taskSlot = document.createElement('li');
@@ -50,11 +50,11 @@ function displayTask (task) {
 function populateTaskList () {
     const ul = document.querySelector(`.task_list`);
     const comms = document.querySelector('.comms_div');
-    
-    //check for no tasks
-    if (storage.allTasks.lenth == 0) {
+    console.log("Am I working?");
+
+    if (storage.allTasks.length == 0) {
         console.log("No projects or tasks.");
-        comms.innerHTML = "Please add some tasks to get started!";
+        comms.textContent = "Please add some tasks to get started!";
     } else {
         storage.allTasks.forEach((project) => {
             //Create 'li' element for each project.
@@ -81,7 +81,7 @@ function populateTaskList () {
 //Page initialization. Clears page's array, then loads it, then populates the html with specified content. Order matters.
 export function init_home () {
     homePage.pageOrder = []
-    homePage.pageOrder.push(h1top, h2sub, taskList, commsDiv);
+    homePage.pageOrder.push(h1top, h2sub, taskList, commsDiv, newTask);
     homePage.loadPage(homePage.pageOrder);
     populateTaskList();
 }
