@@ -44,12 +44,13 @@ export const tFunc = {
     deleteTask: (event) => {
         event.preventDefault();
         const taskID = event.target.getAttribute('data-task-id');
-
+        const parr = taskID.split("_");
         
-        const projectArray = storage.selectProject();
+        //Find project and remove task from project
+        const projectArray = storage.selectProject(parr[0]);
         projectArray = projectArray.filter(task => task.theTask != task.theTask && task.dueDate != task.dueDate);
         
-        //Remove task element
+        //Remove task element from DOM
         const taskElement = document.querySelector(`[data-task-id="${taskID}"`);
         if (taskElement) {
             taskElement.remove();
