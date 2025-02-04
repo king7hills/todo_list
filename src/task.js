@@ -1,3 +1,5 @@
+import { storage } from "./index.js";
+
 export class Task {
     constructor (theTask, dueDate, priority, project) {
         this.theTask = theTask;
@@ -6,6 +8,7 @@ export class Task {
         this.project = project;
         this.creationDate = new Date();
         this.complete = false;
+        this.id = project+"_"+theTask;
     }
 
     markComplete () {
@@ -32,14 +35,24 @@ export class Task {
 export const tFunc = {
     addTask: (projectArray, task) => {
         projectArray.push(task)
-        },
+    },
     
     createTask: (task, dueDate, priority, project) => {
         return new Task(task, dueDate, priority, project);
-        },
+    },
     
-    deleteTask: (projectArray, task) => {
-        const taskIndex = projectArray.findIndex(obj => obj.theTask === task.theTask);
-        projectArray.splice(taskIndex, 1);
-        },
+    deleteTask: (event) => {
+        event.preventDefault();
+        const taskID = event.target.getAttribute('data-task-id');
+
+        
+        const projectArray = storage.selectProject();
+        projectArray = projectArray.filter(task => task.theTask != task.theTask && task.dueDate != task.dueDate);
+        
+        //Remove task element
+        const taskElement = document.querySelector(`[data-task-id="${taskID}"`);
+        if (taskElement) {
+            taskElement.remove();
+        }
+    },
 };

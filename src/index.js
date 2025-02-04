@@ -2,7 +2,8 @@ import "./styles.css";
 import { init_home } from "./home";
 
 export { DynamicPage } from "./dynamicPage";
-export { Task } from "./task";
+export { Task, tFunc } from "./task";
+export { storage } from "./storage.js";
 
 init_home();
 

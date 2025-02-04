@@ -1,6 +1,6 @@
 //home Page
 //Global imports
-import { DynamicPage } from './index.js'; //Note: Use the dynamicPage.js file and link through index.js aggregator.
+import { DynamicPage, storage, tFunc } from './index.js'; //Note: Use the dynamicPage.js file and link through index.js aggregator.
 //Don't forget to import any images. Default setting pulls from a directory named imgs found in the src directory.
 //import _ from './imgs/_';
 import { format } from 'date-fns';
@@ -15,22 +15,66 @@ const today = format(new Date(), "eeee, LLL do, y");
 const h1top = homePage.textElement('h1', 'headline', `Today is ${today}.`);
 const h2sub = homePage.textElement('h2', 'subheading', "Here is what's on the agenda");
 const taskList = homePage.otherElement('ul', 'task_list', '', '');
+const commsDiv = homePage.otherElement('div', 'comms_div', '', '');
 
-function addListItems (ulClass, projectArray) {
-    const ul = document.querySelector(`.${ulClass}`);
-    projectArray.forEach(element => {
-        const newListItem = document.createElement('li');
-        newListItem.innerHTML = element.name;
-        ul.appendChild(newListItem);
-    });
+function displayTask (task) {
+    const taskSlot = document.createElement('li');
+    taskSlot.className = `task_slot ${task.priority}`;
+    taskSlot.setAttribute('data-task-id', task.id);
+    
+    const deleteButton = document.createElement('button');
+    deleteButton.textContent = 'Del';
+    deleteButton.setAttribute('data-task-id', task.id);
+    deleteButton.onclick = function (event) {
+        deleteButton.onclick(tFunc.deleteTask(event));;
+    };
+
+    taskSlot.innerHTML = "Filler";
+    const projectUl = document.querySelector(`ul.${task.project}`);
+    projectUl.appendChild(taskSlot);
+};
+
+function populateTaskList () {
+    const ul = document.querySelector(`.task_list`);
+    const comms = document.querySelector('.comms_div');
+    
+
+    //check for no tasks
+    if (storage.allTasks.lenth == 0) {
+        console.log("No projects or tasks.");
+        comms.innerHTML = "Please add some tasks to get started!";
+    } else {
+        storage.allTasks.forEach((project) => {
+            //Create 'li' element for each project.
+            const aProject = document.createElement('li');
+            aProject.innerHTML = project.name;
+            aProject.className = `taskByProject ${project.name}`;
+            const newList = document.createElement('ul');
+            newList.className = `${project.name}`;
+            aProject.appendChild(newList);
+            ul.appendChild(aProject);
+        });
+
+        //Add each task to the proper project location
+        storage.allTasks.forEach((project) => {
+            const projArr = project.data;
+            projArr.forEach((task) => {
+                displayTask(task);
+            });
+        });
+    };
+};
+
+function createDeleteButton () {
+    const deleteButton = document.createElement('button');
+    deleteButton.onclick(tFunc.deleteTask());
 }
 
-function displayNestedArrayContents (primaryArr) {
-    primaryArr.forEach((element) => element.forEach((item) => console.log(item)));
-}
+
+
 //Page initialization. Clears page's array, then loads it, then populates the html with specified content. Order matters.
 export function init_home () {
     homePage.pageOrder = []
-    homePage.pageOrder.push(h1top, h2sub, taskList);
+    homePage.pageOrder.push(h1top, h2sub, taskList, commsDiv);
     homePage.loadPage(homePage.pageOrder);
 }
