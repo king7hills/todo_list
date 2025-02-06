@@ -12,27 +12,7 @@ export class Task {
         this.complete = false;
         this.id = project+"_"+theTask;
     }
-
-    markComplete () {
-        return this.complete = !this.complete;
-    }
-
-    editTheTask (input) {
-        return this.theTask = input;
-    }
-
-    editDueDate (input) {
-        return this.dueDate = new Date(input);
-    }
-
-    editPriority (input) {
-        return this.priority = input;
-    }
-
-    editTaskProject (input) {
-        return this.project = input;
-    }
-}
+};
 
 export const tFunc = {
     addTask: (project, task) => {
@@ -50,7 +30,6 @@ export const tFunc = {
                 
         //Find project and remove task from project
         const project = storage.selectProject(parr[0]);
-        const task = parr[1];
         project.data = project.data.filter(task => task != task);
         
         //Remove task element from DOM

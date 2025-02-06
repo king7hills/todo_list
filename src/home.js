@@ -1,6 +1,6 @@
 //home Page
 //Global imports
-import { DynamicPage, storage, tFunc } from './index.js'; //Note: Use the dynamicPage.js file and link through index.js aggregator.
+import { DynamicPage, storage, tFunc, openEditTaskDialog } from './index.js'; //Note: Use the dynamicPage.js file and link through index.js aggregator.
 //Don't forget to import any images. Default setting pulls from a directory named imgs found in the src directory.
 //import _ from './imgs/_';
 import { format } from 'date-fns';
@@ -19,22 +19,26 @@ const commsDiv = homePage.textElement('div', 'comms_div', '');
 const newTask = homePage.textElement('button', 'newTask', '+ New Task');
 
 function displayTask (task) {
-    const taskSlot = document.createElement('li');
-    taskSlot.className = `task_slot ${task.priority}`;
-    taskSlot.setAttribute('data-task-id', task.id);
+    const taskLI = document.createElement('li');
+    taskLI.className = `task_slot ${task.priority}`;
+    taskLI.setAttribute('data-task-id', task.id);
+
+    const taskDiv = document.createElement('div');
+    taskDiv.className = `task_slot ${task.priority}`;
+    taskDiv.setAttribute('data-task-id', task.id);
     
     const completeButton = document.createElement('input');
     completeButton.setAttribute('type', "checkbox");
     completeButton.setAttribute('data-task-id', task.id);
-    completeButton.onchange = function (task) {
-        task.markComplete();
-        if (completeButton.value == "on") {
-            taskSlot.style.textDecorationLine("line-through");
-        } else if (completeButton.value == "off") {
-            taskSlot.style.textDecorationLine("none");
+    completeButton.onchange = function () {
+        task.complete = !task.complete;
+        if (this.checked) {
+            taskLI.style.textDecorationLine = "line-through";
+        } else {
+            taskLI.style.textDecorationLine = "none";
         }
     };
-    
+
     const deleteButton = document.createElement('button');
     deleteButton.textContent = 'Del';
     deleteButton.setAttribute('data-task-id', task.id);
@@ -42,11 +46,16 @@ function displayTask (task) {
         tFunc.deleteTask(event);
     };
 
-    taskSlot.textContent = task.theTask + " Due: "+ format(new Date(task.dueDate), "Pp");
-    taskSlot.appendChild(completeButton);
-    taskSlot.appendChild(deleteButton);
+    taskDiv.innerHTML = task.theTask + " Due: "+ format(new Date(task.dueDate), "Pp");
+    taskDiv.onclick = function (event) {
+        openEditTaskDialog(event);
+    };
+
+    taskLI.appendChild(taskDiv);
+    taskLI.appendChild(deleteButton);
     const projectUl = document.querySelector(`ul.${task.project}`);
-    projectUl.appendChild(taskSlot);
+    projectUl.appendChild(taskLI);
+    taskLI.insertBefore(completeButton, taskDiv); //Places the complete button before the respective task Div. All on same li  
 };
 
 export function populateTaskList () {

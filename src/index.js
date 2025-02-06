@@ -3,17 +3,19 @@ import { DynamicPage } from "./dynamicPage.js";
 import { Task, tFunc } from "./task.js";
 import { storage } from "./storage.js";
 import { init_home, populateTaskList } from "./home.js";
-import { setupDialog } from './dialog.js';
+import { setupDialog, openEditTaskDialog } from './dialog.js';
 
 export { DynamicPage } from "./dynamicPage.js";
 export { Task, tFunc } from "./task.js";
 export { storage } from "./storage.js";
 export { populateTaskList } from "./home.js";
+export { openEditTaskDialog } from "./dialog.js";
 
-storage.createProject("General");
-storage.saveData();
+//Initial settings
 init_home();
 setupDialog();
+
+
 
 function loadContent (initFunction) {
     const page = document.querySelector('div#content');
@@ -24,6 +26,6 @@ function loadContent (initFunction) {
 const homeButton = document.querySelector("#home");
 homeButton.addEventListener("click", () =>
     {loadContent(init_home);
-        setupDialog();
+     setupDialog();
     },
 );
