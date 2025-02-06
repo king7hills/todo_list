@@ -20,7 +20,7 @@ const newTask = homePage.textElement('button', 'newTask', '+ New Task');
 
 function displayTask (task) {
     const taskLI = document.createElement('li');
-    taskLI.className = `task_slot ${task.priority}`;
+    taskLI.className = `task_slot`;
     taskLI.setAttribute('data-task-id', task.id);
 
     const taskDiv = document.createElement('div');

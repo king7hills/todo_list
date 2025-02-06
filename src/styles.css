@@ -81,15 +81,15 @@ li.task_slot > button {
     font-size: 1.1rem;
 }
 
-div.priority1 {
+.priority1 {
     background-color: aquamarine;
     color: black;
 }
-div.priority2 {
+.priority2 {
     background-color: yellow;
     color: black;
 }
-div.priority3 {
+.priority3 {
     background-color: orange;
     color: white;
 }
@@ -136,6 +136,11 @@ form {
 form > *label {
     font-size: 1rem;
     font-weight: 200;
+}
+
+.priority_group > div > label {
+    border-radius: 10px;
+    padding: 0 10px;
 }
 
 #task_submit {
