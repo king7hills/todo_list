@@ -6,8 +6,12 @@ const closeDialog = document.querySelector('button.dialog_close');
 const dialogTitle = document.querySelector('#dialogTitle');
 const submitButton = document.querySelector('#task_submit');
 const theTaskInput = document.querySelector('#task');
+const ddInput = document.querySelector('#dueDate');
+const selectInput = document.querySelector("select");
+
 let editingTask = null;
 
+// Opens dialog for new task.
 function openNewTaskDialog() {
     editingTask = null;
     dialogTitle.textContent = "Add New Task";
@@ -16,23 +20,30 @@ function openNewTaskDialog() {
     theTaskInput.focus();
 };
 
+// Opens dialog for task editing.
 function openEditTaskDialog(event) {
     event.preventDefault();
+    
+    //Using the data attribute id tag, return the project object and the task object.
     const taskID = event.target.getAttribute('data-task-id');
     const IDarr = taskID.split("_");
-    const project = storage.selectProject(IDarr[0]);
+    const project = storage.selectProject(IDarr[0]); //Project object
     const theTask = IDarr[1];
-    const taskObject = project.data.find(theTask);
+    const taskObject = project.data.find(theTask); //Task object
 
-    editingTask = taskObject;
+    editingTask = taskObject; // Sets the task to be edited into the placeholder which triggers edit submit behavior.
     dialogTitle.textContent = "Edit Task";
     submitButton.textContent = "Save Changes";
+
+    const oldPriority = document.querySelector(`input[name="Priority"][value="${editingTask.priority}"]`);
+    theTaskInput.value = editingTask.theTask;
+    ddInput.value = editingTask.dueDate;
+    oldPriority.checked = true;
+    selectInput.value = editingTask.project;
+
     dialog.showModal();
     theTaskInput.focus();
-}
-
-
-
+};
 
 // Diaglog main
 function setupDialog() {
@@ -70,7 +81,7 @@ function setupDialog() {
                 storage.createProject(newProject);
                 console.log("new project created");
             };
-            editingTask.updateTask(newTask, newDueDate, newPriority, newProject);
+           tFunc.updateTask(editingTask, newTask, newDueDate, newPriority, newProject);
         };
         
         storage.saveData();
@@ -79,6 +90,7 @@ function setupDialog() {
         form.reset();
     };
 
+    // Calls submit behavior function when submitting the form.
     form.addEventListener("submit", (e) => {
         e.preventDefault();
         formSubmitBehavior();
@@ -100,7 +112,7 @@ function setupDialog() {
         defaultProjectSelection.removeAttribute("selected");
         newProject.setAttribute("selected", "selected");
 
-        document.querySelector("select").add(newProject);
+        selectInput.add(newProject);
     };
 
     const newProjectButton = document.querySelector("#form_new_project");

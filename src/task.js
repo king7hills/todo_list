@@ -38,4 +38,11 @@ export const tFunc = {
             taskElement.remove();
         }
     },
+
+    updateTask: (taskObj, newTheTask, newDueDate, newPriority, newProject) => {
+        taskObj.theTask = newTheTask;
+        taskObj.dueDate = newDueDate;
+        taskObj.priority = newPriority;
+        taskObj.project = newProject;
+    },
 };
