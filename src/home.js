@@ -46,7 +46,7 @@ function displayTask (task) {
         tFunc.deleteTask(event);
     };
 
-    taskDiv.innerHTML = task.theTask + " Due: "+ format(new Date(task.dueDate), "Pp");
+    taskDiv.innerHTML = task.theTask + "." + " Due: "+ format(new Date(task.dueDate), "Pp");
     taskDiv.onclick = function (event) {
         openEditTaskDialog(event);
     };
