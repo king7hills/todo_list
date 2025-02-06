@@ -29,7 +29,7 @@ function openEditTaskDialog(event) {
     const IDarr = taskID.split("_");
     const project = storage.selectProject(IDarr[0]); //Project object
     const theTask = IDarr[1];
-    const taskObject = project.data.find(theTask); //Task object
+    const taskObject = project.data.find((task) => task.theTask = theTask); //Task object
 
     editingTask = taskObject; // Sets the task to be edited into the placeholder which triggers edit submit behavior.
     dialogTitle.textContent = "Edit Task";
@@ -37,7 +37,8 @@ function openEditTaskDialog(event) {
 
     const oldPriority = document.querySelector(`input[name="Priority"][value="${editingTask.priority}"]`);
     theTaskInput.value = editingTask.theTask;
-    ddInput.value = editingTask.dueDate;
+    const dd = editingTask.dueDate;
+    ddInput.value = dd.slice(0,16);
     oldPriority.checked = true;
     selectInput.value = editingTask.project;
 

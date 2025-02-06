@@ -12,6 +12,7 @@ export { populateTaskList } from "./home.js";
 export { openEditTaskDialog } from "./dialog.js";
 
 //Initial settings
+storage.getData();
 init_home();
 setupDialog();
 
