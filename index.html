@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nifty To-Do</title>
+<script defer src="main.js"></script></head>
+<body>
+    <header>
+        <h1>Nifty To-Do</h1>
+        <div class="header_date"></div>
+    </header>
+    <div id="sidebar">
+        <ul>
+            <li><button id="home" class="sidebar_button">Home</button></li>
+            <li><button id="week" class="sidebar_button">Week</button></li>
+            <li><button id="projects" class="sidebar_button">Projects</button></li>
+        </ul>
+    </div>
+    <div id="content"></div>
+    <dialog class="dialog">
+        <div class="dialog-header">
+            <h2 id="dialogTitle">Add New Task</h2>
+            <button class="dialog_close">X</button>
+        </div>
+        <form id="add_task" method="dialog">
+            <div>
+                <label for="task">Task: </label>
+                <input type="text" id="task" name="Task" autofocus>
+            </div>
+            <div>
+                <label for="dueDate">Due Date: </label>
+                <input type="datetime-local" id="dueDate" name="Due Date">
+            </div>
+            
+            <div class="priority_group">
+                <div>
+                    <input type="radio" id="priority1" name="Priority" value="priority1">
+                    <label class="priority1" for="priority1"> Priority 1</label>
+                </div>
+                <div>
+                    <input type="radio" id="priority2" name="Priority" value="priority2">
+                    <label class="priority2" for="priority2"> Priority 2</label>
+                </div>
+                <div>
+                    <input type="radio" id="priority3" name="Priority" value="priority3">
+                    <label class="priority3" for="priority3"> Priority 3</label>
+                </div>
+            </div>
+            <div>
+                <label for="project">Project: </label>
+                <select id="project" name="Project">
+                    <option value="General" selected="selected">General</option>
+                </select>
+                <button type="button" name="newProject" id="form_new_project">Add New Project</button>
+            </div>
+            <button type="submit" name="submit" id="task_submit">Save</button>
+         </form>
+    </dialog>
+
+    <footer>
+        <div>Copyright 86 on Duck Studios</div>
+    </footer>
+</body>
+</html>
