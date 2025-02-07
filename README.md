@@ -14,4 +14,5 @@ This today list utilizes webpack for loading various modules.
 The program utilizes local browser storage for persistance. It converts inputs and stores them in the appropriate project array which is contained in a master array.
 The master is retrieved at each start of the session.
 
-The home page displays all tasks on the docket. The project page displays each existing project.
+The home page displays all tasks on the docket.
+Tasks are separated by their corresponding project.
